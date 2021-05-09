@@ -15,12 +15,13 @@ const useStyles = theme => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
         textAlign: 'center',
-        width: '96vW',
+        width: "100%",
         color: theme.palette.text.secondary,
+        alignItems: 'center',
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
-    },
+    }
 });
 class UserType extends Component {
     constructor(props) {
@@ -47,21 +48,23 @@ class UserType extends Component {
 console.log('extra_text_inputs', extra_text_inputs)
         return (
             <Grid xs={12}>
-                <FormControl variant="outlined" className={classes.formControl}>
+                <FormControl  xs={12}    variant="outlined" className={classes.formControl}>
                     <InputLabel id="demo-simple-select-filled-label">User Types</InputLabel>
                     <Select
                         labelId="demo-simple-select-filled-label"
                         id="demo-simple-select-filled"
-                        fullWidth="true"
+                        xs={12}
+                        style={{width: "100%"}}
                         value={user_types}
                         onChange={handleChange}
                     >
-                        <MenuItem value="">
+                        <MenuItem value=""   xs={12}>
                             <em>None</em>
                         </MenuItem>
                         {userTypes.map((ele, i) =>
                             <MenuItem
                                 key={i}
+                                xs={12}
                                 value={ele}>
                                 {ele}
                             </MenuItem>
@@ -70,9 +73,8 @@ console.log('extra_text_inputs', extra_text_inputs)
                 </FormControl>
 
                 {extraInput && extraInput.length && (
-                    extraInput.map((element) => {
-                        return (
-                            <Grid xs={12}>
+                    extraInput.map((element) => 
+                            <Grid xs={12}  >
                                 <TextValidator
                                     id={element.value}
                                     label={element.label}
@@ -82,11 +84,10 @@ console.log('extra_text_inputs', extra_text_inputs)
                                     variant="outlined"
                                     validators={['required']}
                                     errorMessages={[`${element.label} is required`]}
-                                    value={this.state[element.value] || ''}
+                                    value={this.state[element.value]}
                                     onChange={this.handleExtraField.bind(this)} />
                             </Grid>
                         )
-                    })
                 )}
             </Grid>
         )

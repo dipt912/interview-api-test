@@ -16,12 +16,13 @@ const useStyles = theme => ({
         '& > *': {
             margin: theme.spacing(1),
             width: '100vW',
+            justifyContent:  'center',
         },
     },
 
     paper: {
         padding: theme.spacing(2),
-        textAlign: 'center',
+        justifyContent:  'center',
         color: theme.palette.text.secondary,
     },
     retry: {
@@ -32,6 +33,10 @@ const useStyles = theme => ({
         padding: theme.spacing(2),
         width: "90vW",
         marginTop: '10px'
+    },
+    centerItem : {
+        margin: 'auto',
+        marginTop: '20px',
     }
 });
 
@@ -128,16 +133,14 @@ class CreateUser extends Component {
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
                         <div>
-                            {/* <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
-                         */}
-                            {/* <div className={'form-content'}> */}
                             <ValidatorForm
                                 className={classes.root}
                                 autoComplete="off"
                                 onSubmit={this.handleSubmit}
                                 instantValidate={false}
                             >
-                                <Grid item xs={12}>
+                                <Grid item xs={12} sm={6}
+                                    className={classes.centerItem}>
                                     <TextValidator
                                         id="lastName"
                                         label="Last Name"
@@ -150,7 +153,8 @@ class CreateUser extends Component {
                                         onChange={this.handleInputChange} />
 
                                 </Grid>
-                                <Grid item xs={12}>
+                                <Grid item xs={12} sm={6}
+                                    className={classes.centerItem}>
                                     <TextValidator
                                         id="firstName"
                                         label="First Name"
@@ -162,7 +166,8 @@ class CreateUser extends Component {
                                         errorMessages={['First Name is required']}
                                         onChange={this.handleInputChange} />
                                 </Grid>
-                                <Grid item xs={12}>
+                                <Grid item xs={12} sm={6}  
+                                     className={classes.centerItem}>
                                     <TextValidator
                                         id="Email"
                                         label="Email"
@@ -174,6 +179,7 @@ class CreateUser extends Component {
                                         errorMessages={['required field', 'invalid email']}
                                         onChange={this.handleInputChange} />
                                 </Grid>
+                                <Grid item xs={12} sm={6} className={classes.centerItem}>
                                 {userTypes &&
                                     <UserType
                                         userTypes={userTypes}
@@ -182,7 +188,8 @@ class CreateUser extends Component {
                                         handleChange={this.handleChange.bind(this)}
                                         handleInputChange={this.handleExtraInputChange.bind(this)} />}
                                 {/* </div> */}
-                                <div className={'buttons-row'}>
+                                </Grid>
+                                <div className={'buttons-row'}  >
                                     {!isFailed ? <Button
                                                     variant="contained"
                                                     color="primary"

@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router-dom'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { buildRequest } from '../../../utils';
 
 
 const useStyles = theme => ({
@@ -79,7 +80,7 @@ class CreateUser extends Component {
 
     handleSubmit = async (event) => {
         event.preventDefault()
-        const data = await postEvent(this.buildRequest())
+        const data = await postEvent(buildRequest(this.state))
         if (data && Object.keys(data).length) {
             let { history } = this.props;
             history.push({
@@ -89,25 +90,7 @@ class CreateUser extends Component {
         }
 
     }
-    buildRequest() {
-
-        let req = {
-
-        }
-        if (Object.keys(this.state.extra_inputs).length) {
-            req = this.state.extra_inputs;
-        }
-
-        req = {
-            ...req,
-            first_name: this.state.FirstName,
-            last_name: this.state.LastName,
-            email: this.state.Email,
-            type: this.state.user_types
-        }
-        console.log('req', req);
-        return req;
-    }
+   
     handleChange(event) {
         const type = event.target.value;
         this.setState({

@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { TextValidator } from 'react-material-ui-form-validator';
 
 
 
@@ -38,19 +35,15 @@ class UserType extends Component {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-        console.log('name', name, value)
         this.setState({
             [name]: value
         });
-        console.log('state', this.state)
         this.props.handleInputChange(event);
     }
 
     render() {
-        const { userTypes, user_types, extra_text_inputs, handleChange } = this.props;
+        const { userTypes, user_types, extra_text_inputs, handleChange, classes } = this.props;
         const extraInput = extra_text_inputs[user_types];
-        const { classes } = this.props;
-        console.log("extraInput", extra_text_inputs)
 
         return (
             <Grid xs={12}>

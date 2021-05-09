@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import CheckCircleOutlineSharpIcon from '@material-ui/icons/CheckCircleOutlineSharp';
+
 const useStyles = theme => ({
     root: {
         '& > *': {
@@ -30,7 +31,6 @@ class ConfirmedUser extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div>
                 <h2>

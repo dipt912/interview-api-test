@@ -26,7 +26,7 @@ class ConfirmedUser extends Component {
     redirectToHome(event) {
         event.preventDefault()
         let { history } = this.props;
-        history.push('/')
+        history.push('interview-api-test')
     }
 
     render() {

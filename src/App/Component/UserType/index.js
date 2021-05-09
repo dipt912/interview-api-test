@@ -44,7 +44,7 @@ class UserType extends Component {
     render() {
         const { userTypes, user_types, extra_text_inputs, handleChange, classes } = this.props;
         const extraInput = extra_text_inputs[user_types];
-
+console.log('extra_text_inputs', extra_text_inputs)
         return (
             <Grid xs={12}>
                 <FormControl variant="outlined" className={classes.formControl}>
@@ -72,7 +72,7 @@ class UserType extends Component {
                 {extraInput && extraInput.length && (
                     extraInput.map((element) => {
                         return (
-                            <Grid item xs={12}>
+                            <Grid xs={12}>
                                 <TextValidator
                                     id={element.value}
                                     label={element.label}

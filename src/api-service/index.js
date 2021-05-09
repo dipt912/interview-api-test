@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+const baseUrl = process.env.api_base_url;
 
 export default class API {
 

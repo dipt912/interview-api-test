@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { postEvent, getEvents } from "../../../api-service/api";
 import UserType from '../UserType';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router-dom'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import Alert from '@material-ui/lab/Alert';
 import { buildRequest } from '../../../utils';
 
 
@@ -24,6 +24,15 @@ const useStyles = theme => ({
         textAlign: 'center',
         color: theme.palette.text.secondary,
     },
+    retry: {
+        backgroundColor: 'red',
+        color: 'white'
+    },
+    alert: {
+        padding: theme.spacing(2),
+        width: "90vW",
+        marginTop: '10px'
+    }
 });
 
 class CreateUser extends Component {
@@ -38,7 +47,8 @@ class CreateUser extends Component {
             extra_text_inputs: {},
             isLoading: false,
             extra_inputs: {},
-            submitted: false
+            submitted: false,
+            isFailed: false
         }
     }
 
@@ -80,17 +90,23 @@ class CreateUser extends Component {
 
     handleSubmit = async (event) => {
         event.preventDefault()
-        const data = await postEvent(buildRequest(this.state))
-        if (data && Object.keys(data).length) {
-            let { history } = this.props;
-            history.push({
-                pathname: '/confirmed-user',
-                customNameData: data
-            })
+        const res = await postEvent(buildRequest(this.state))
+        console.log('data', res);
+        if (res.status === 'failed') {
+            this.setState({ isFailed: true });
+        } else if (res.status === 'success') {
+            if (res.data && Object.keys(res.data).length) {
+                let { history } = this.props;
+                history.push({
+                    pathname: '/confirmed-user',
+                    customNameData: res.data
+                })
+            }
         }
 
+
     }
-   
+
     handleChange(event) {
         const type = event.target.value;
         this.setState({
@@ -104,7 +120,7 @@ class CreateUser extends Component {
 
 
     render() {
-        const { isLoading, LastName, FirstName, Email, userTypes, extra_text_inputs, user_types } = this.state;
+        const { isLoading, LastName, FirstName, Email, userTypes, extra_text_inputs, user_types, isFailed } = this.state;
         const { classes } = this.props;
         return (
 
@@ -114,15 +130,15 @@ class CreateUser extends Component {
                         <div>
                             {/* <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
                          */}
-                                {/* <div className={'form-content'}> */}
-                                <ValidatorForm
-                                    className={classes.root} 
-                                    autoComplete="off"
-                                    onSubmit={this.handleSubmit}
-                                    instantValidate={false}
-                                >
+                            {/* <div className={'form-content'}> */}
+                            <ValidatorForm
+                                className={classes.root}
+                                autoComplete="off"
+                                onSubmit={this.handleSubmit}
+                                instantValidate={false}
+                            >
                                 <Grid item xs={12}>
-                                <TextValidator
+                                    <TextValidator
                                         id="lastName"
                                         label="Last Name"
                                         name="LastName"
@@ -167,16 +183,30 @@ class CreateUser extends Component {
                                         handleInputChange={this.handleExtraInputChange.bind(this)} />}
                                 {/* </div> */}
                                 <div className={'buttons-row'}>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        type="submit"
-                                        validators={['required']}
-                                        disabled={isLoading}>
-                                        Submit
-                        </Button>
+                                    {!isFailed ? <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    type="submit"
+                                                    validators={['required']}
+                                                    disabled={isLoading}>
+                                                    Submit
+                                                </Button> : (
+                                                    <div>
+                                                        <Button
+                                                            variant="contained"
+                                                            color="danger"
+                                                            type="submit"
+                                                            className={classes.retry}
+                                                            validators={['required']}
+                                                            disabled={isLoading}>
+                                                            Retry
+                                                        </Button>
+                                                        <Alert className={classes.alert} severity="error">Something went wrong. Please try after sometime</Alert>
+                                                    </div>
+
+                                        )}
                                 </div>
-                                </ValidatorForm>
+                            </ValidatorForm>
                         </div>
                     </Paper>
                 </Grid>

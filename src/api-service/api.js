@@ -1,11 +1,12 @@
 import API from "./index";
+import api_constant from './api.constant'
 
 
 export const getEvents = async () => {
     try {
         const res = await API.createRequest({
-            url: '/user_create',
-            method: 'GET'
+            url: api_constant.USER_CREATE,
+            method: api_constant.GET
         });
         return res.data;
     } catch (e) {
@@ -16,17 +17,16 @@ export const getEvents = async () => {
 
 export const postEvent = async (data) => {
     try {
-        console.log("post ", data)
         const res = await API.createRequest({
-            url: '/update_user',
-            method: 'POST',
+            url: api_constant.UPDATE_USER,
+            method: api_constant.POST,
             data: data
         });
 
-        return res.data
+        return {status: api_constant.SUCCESS,  data: res.data };
     } catch (e) {
         console.log('getEvents error', e);
-        throw e;
+        return { status: api_constant.FAILED}
     }
 };
 

@@ -1,9 +1,28 @@
-import React, {Component} from 'react';
-import { postEvent, getEvents} from "../../../api-service/api";
+import React, { Component } from 'react';
+import { postEvent, getEvents } from "../../../api-service/api";
 import UserType from '../UserType';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
-
+const useStyles = theme => ({
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+            width: '100vW',
+        },
+    },
+    root1: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
+});
 
 class CreateUser extends Component {
     constructor(props) {
@@ -16,7 +35,7 @@ class CreateUser extends Component {
             userTypes: [],
             extra_text_inputs: {},
             isLoading: false,
-            extra_inputs : {}
+            extra_inputs: {}
         }
     }
 
@@ -27,7 +46,7 @@ class CreateUser extends Component {
         const name = target.name;
         this.setState({
             [name]: value
-        },() => {
+        }, () => {
             this.forceUpdate()
         });
     }
@@ -40,15 +59,15 @@ class CreateUser extends Component {
         const obj = {}
         obj[name] = value;
         this.setState({
-            extra_inputs: { ...obj}
-        },() => {
+            extra_inputs: { ...obj }
+        }, () => {
             this.forceUpdate()
         });
     }
 
 
     async componentDidMount() {
-        const metaData =   await getEvents();
+        const metaData = await getEvents();
         this.setState({
             userTypes: metaData.user_types,
             extra_text_inputs: metaData.extra_text_inputs
@@ -65,25 +84,25 @@ class CreateUser extends Component {
     }
     buildRequest() {
 
-       let req =  { 
-           
+        let req = {
+
         }
-        if(Object.keys(this.state.extra_inputs).length) {
+        if (Object.keys(this.state.extra_inputs).length) {
             req = this.state.extra_inputs;
         }
 
         req = {
             ...req,
-             first_name: this.state.FirstName,
+            first_name: this.state.FirstName,
             last_name: this.state.LastName,
             email: this.state.Email,
             type: this.state.user_types
         }
-       console.log('req', req);
+        console.log('req', req);
         return req;
     }
     handleChange(event) {
-        const type= event.target.value;
+        const type = event.target.value;
         this.setState({
             user_types: type
         }, (state) => {
@@ -92,61 +111,80 @@ class CreateUser extends Component {
 
     }
 
-   
+
 
     render() {
-        const {isLoading, LastName, FirstName, Email , userTypes, extra_text_inputs, user_types} = this.state;
+        const { isLoading, LastName, FirstName, Email, userTypes, extra_text_inputs, user_types } = this.state;
+        const { classes } = this.props;
+        return (
 
-        return  (
-            <div className={'form'}>
-                <form  onSubmit={this.handleSubmit}>
-                    <div className={'form-content'}>
-                        <div className="form-item">
-                            <label htmlFor="lastName" className="form-item-label">Last Name</label>
-                            <input className="form-item-input" id="lastName"
-                                   name="LastName"
-                                   value={LastName}
-                                   onChange={this.handleInputChange}
-                            />
-                        </div>
-                        <div className="form-item">
-                            <label htmlFor="firstName" className="form-item-label">First Name</label>
-                            <input className="form-item-input" id="firstName"
-                                   name="FirstName"
-                                   value={FirstName}
-                                   onChange={this.handleInputChange}
-                            />
-                        </div>
-                        <div className="form-item">
-                            <label htmlFor="Email" className="form-item-label">Email Address</label>
-                            <input className="form-item-input" id="Email"
-                                   name="Email"
-                                   value={Email}
-                                   onChange={this.handleInputChange}
-                            />
-                        </div>
-                        {userTypes &&
-                            <UserType 
-                                 userTypes = {userTypes}  
-                                 extra_text_inputs= {extra_text_inputs} 
-                                 user_types={user_types}
-                                 handleChange={this.handleChange.bind(this)}
-                                 handleInputChange = {this.handleExtraInputChange.bind(this)} />}
-                    </div>
-                    <div className={'buttons-row'}>
-                        <Button 
-                            variant="contained" 
-                            color="primary" 
-                            type="submit" 
-                            onClick={this.handleSubmit} 
-                            disabled={isLoading}>
-                                    Submit
+            <React.Fragment>
+                <Grid item xs={12}>
+                    <Paper className={classes.paper}>
+                        <div className={'form'} >
+                            <form className={classes.root} noValidate autoComplete="off" onSubmit={this.handleSubmit}>
+                                {/* <div className={'form-content'}> */}
+                                <Grid item xs={12}>
+                                    <TextField
+                                        id="lastName"
+                                        label="Last Name"
+                                        name="LastName"
+                                        fullWidth="true"
+                                        required="true"
+                                        variant="outlined"
+                                        value={LastName}
+                                        onChange={this.handleInputChange} />
+
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        id="firstName"
+                                        label="First Name"
+                                        name="FirstName"
+                                        fullWidth="true"
+                                        variant="outlined"
+                                        required="true"
+                                        value={FirstName}
+                                        onChange={this.handleInputChange} />
+                               </Grid>
+                               <Grid item xs={12}>
+                                    <TextField
+                                        id="Email"
+                                        label="Email"
+                                        name="Email"
+                                        fullWidth="true"
+                                        variant="outlined"
+                                        required="true"
+                                        value={Email}
+                                        onChange={this.handleInputChange} />
+                                 </Grid>
+                                {userTypes &&
+                                    <UserType
+                                        userTypes={userTypes}
+                                        extra_text_inputs={extra_text_inputs}
+                                        user_types={user_types}
+                                        handleChange={this.handleChange.bind(this)}
+                                        handleInputChange={this.handleExtraInputChange.bind(this)} />}
+                                {/* </div> */}
+                                <div className={'buttons-row'}>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        type="submit"
+                                        onClick={this.handleSubmit}
+                                        disabled={isLoading}>
+                                        Submit
                         </Button>
-                    </div>
-                </form>
-            </div>
-        ) ;
+                                </div>
+                            </form>
+                        </div>
+                    </Paper>
+                </Grid>
+
+            </React.Fragment>
+
+        );
     }
 }
 
-export default CreateUser;
+export default withStyles(useStyles)(CreateUser)

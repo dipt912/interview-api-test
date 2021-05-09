@@ -14,9 +14,7 @@ const useStyles = theme => ({
             width: '100vW',
         },
     },
-    root1: {
-        flexGrow: 1,
-    },
+   
     paper: {
         padding: theme.spacing(2),
         textAlign: 'center',

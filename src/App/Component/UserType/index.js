@@ -12,12 +12,11 @@ import TextField from '@material-ui/core/TextField';
 
 const useStyles = theme => ({
     formControl: {
-        minWidth: 120,
+        minWidth: 110,
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
-        marginRight: theme.spacing(3),
         textAlign: 'center',
-        width: '90vW',
+        width: '96vW',
         color: theme.palette.text.secondary,
     },
     selectEmpty: {
@@ -49,8 +48,7 @@ class UserType extends Component {
         const { classes } = this.props;
 
         return (
-            <div>
-
+            <Grid xs={12}>
                 <FormControl variant="filled"   className={classes.formControl}>
                     <InputLabel id="demo-simple-select-filled-label">User Types</InputLabel>
                     <Select
@@ -85,7 +83,7 @@ class UserType extends Component {
                         )
                     })
                 )}
-            </div>
+            </Grid>
         )
     }
 

@@ -3,21 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import CheckCircleOutlineSharpIcon from '@material-ui/icons/CheckCircleOutlineSharp';
-
-const useStyles = theme => ({
-    root: {
-        '& > *': {
-            margin: theme.spacing(1),
-            width: '100vW',
-        },
-    },
-
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
-});
+import { useStyles } from './styles';
 
 class ConfirmedUser extends Component {
     constructor(props) {
@@ -34,9 +20,9 @@ class ConfirmedUser extends Component {
         return (
             <div>
                 <h2>
-                <span> <CheckCircleOutlineSharpIcon style={{fill: "green"}}/></span>
-                <span>  User Successfully Created</span>
-                   </h2>
+                    <span> <CheckCircleOutlineSharpIcon style={{ fill: "green" }} /></span>
+                    <span>  User Successfully Created</span>
+                </h2>
                 <Button
                     variant="contained"
                     color="primary"
@@ -46,11 +32,8 @@ class ConfirmedUser extends Component {
                     Return Home
                         </Button>
             </div>
-
         )
-
     }
 }
-
 
 export default withRouter(withStyles(useStyles)(ConfirmedUser))

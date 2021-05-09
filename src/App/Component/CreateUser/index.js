@@ -9,36 +9,8 @@ import { withRouter } from 'react-router-dom'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import Alert from '@material-ui/lab/Alert';
 import { buildRequest } from '../../../utils';
+import { useStyles } from './styles';
 
-
-const useStyles = theme => ({
-    root: {
-        '& > *': {
-            margin: theme.spacing(1),
-            width: '100vW',
-            justifyContent:  'center',
-        },
-    },
-
-    paper: {
-        padding: theme.spacing(2),
-        justifyContent:  'center',
-        color: theme.palette.text.secondary,
-    },
-    retry: {
-        backgroundColor: 'red',
-        color: 'white'
-    },
-    alert: {
-        padding: theme.spacing(2),
-        width: "90vW",
-        marginTop: '10px'
-    },
-    centerItem : {
-        margin: 'auto',
-        marginTop: '20px',
-    }
-});
 
 class CreateUser extends Component {
     constructor(props) {
@@ -191,15 +163,18 @@ class CreateUser extends Component {
                                 </Grid>
                                 <div className={'buttons-row'}  >
                                     {!isFailed ? <Button
+                                    xs={12} sm={6}
                                                     variant="contained"
                                                     color="primary"
                                                     type="submit"
+                                                    className={classes.button}
                                                     validators={['required']}
                                                     disabled={isLoading}>
                                                     Submit
                                                 </Button> : (
                                                     <div>
                                                         <Button
+                                                        xs={12} sm={6}
                                                             variant="contained"
                                                             color="danger"
                                                             type="submit"

@@ -120,7 +120,7 @@ class CreateUser extends Component {
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
                         <div className={'form'} >
-                            <form className={classes.root} noValidate autoComplete="off" onSubmit={this.handleSubmit}>
+                            <form className={classes.root}  autoComplete="off" onSubmit={this.handleSubmit}>
                                 {/* <div className={'form-content'}> */}
                                 <Grid item xs={12}>
                                     <TextField
@@ -131,6 +131,7 @@ class CreateUser extends Component {
                                         required="true"
                                         variant="outlined"
                                         value={LastName}
+                                        helperText="Required Field"
                                         onChange={this.handleInputChange} />
 
                                 </Grid>
@@ -143,6 +144,7 @@ class CreateUser extends Component {
                                         variant="outlined"
                                         required="true"
                                         value={FirstName}
+                                        helperText="Required Field"
                                         onChange={this.handleInputChange} />
                                </Grid>
                                <Grid item xs={12}>
@@ -154,6 +156,7 @@ class CreateUser extends Component {
                                         variant="outlined"
                                         required="true"
                                         value={Email}
+                                        helperText="Required Field"
                                         onChange={this.handleInputChange} />
                                  </Grid>
                                 {userTypes &&

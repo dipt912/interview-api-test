@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 
 const useStyles = theme => ({
     formControl: {
-        minWidth: 110,
+        minWidth: 40,
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
         textAlign: 'center',
@@ -36,9 +36,11 @@ class UserType extends Component {
         const target = event.target;
         const value = target.value;
         const name = target.name;
+        console.log('name', name, value)
         this.setState({
             [name]: value
         });
+        console.log('state', this.state)
         this.props.handleInputChange(event);
     }
 
@@ -49,7 +51,7 @@ class UserType extends Component {
 
         return (
             <Grid xs={12}>
-                <FormControl variant="filled"   className={classes.formControl}>
+                <FormControl  variant="outlined"  className={classes.formControl}>
                     <InputLabel id="demo-simple-select-filled-label">User Types</InputLabel>
                     <Select
                         labelId="demo-simple-select-filled-label"
@@ -73,7 +75,7 @@ class UserType extends Component {
                                 <TextField
                                     id={element.value}
                                     label={element.label}
-                                    name={element.label}
+                                    name={element.value}
                                     fullWidth="true"
                                     required="true"
                                     variant="outlined"

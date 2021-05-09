@@ -45,7 +45,6 @@ class UserType extends Component {
     render() {
         const { userTypes, user_types, extra_text_inputs, handleChange, classes } = this.props;
         const extraInput = extra_text_inputs[user_types];
-console.log('extra_text_inputs', extra_text_inputs)
         return (
             <Grid xs={12}>
                 <FormControl  xs={12}    variant="outlined" className={classes.formControl}>
@@ -58,7 +57,7 @@ console.log('extra_text_inputs', extra_text_inputs)
                         value={user_types}
                         onChange={handleChange}
                     >
-                        <MenuItem value=""   xs={12}>
+                        <MenuItem value=""  xs={12}>
                             <em>None</em>
                         </MenuItem>
                         {userTypes.map((ele, i) =>

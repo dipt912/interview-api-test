@@ -208,7 +208,7 @@ class CreateUser extends Component {
                                                             disabled={isLoading}>
                                                             Retry
                                                         </Button>
-                                                        <Alert className={classes.alert} severity="error">Something went wrong. Please try after sometime</Alert>
+                                                        <Alert xs={12} sm={6} className={classes.alert} severity="error">Something went wrong. Please try after sometime</Alert>
                                                     </div>
 
                                         )}

@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router-dom'
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 
 const useStyles = theme => ({
@@ -35,7 +36,8 @@ class CreateUser extends Component {
             userTypes: [],
             extra_text_inputs: {},
             isLoading: false,
-            extra_inputs: {}
+            extra_inputs: {},
+            submitted: false
         }
     }
 
@@ -126,41 +128,51 @@ class CreateUser extends Component {
             <React.Fragment>
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                        <div className={'form'} >
-                            <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
+                        <div>
+                            {/* <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
+                         */}
                                 {/* <div className={'form-content'}> */}
+                                <ValidatorForm
+                                    className={classes.root} 
+                                    autoComplete="off"
+                                    onSubmit={this.handleSubmit}
+                                    instantValidate={false}
+                                >
                                 <Grid item xs={12}>
-                                    <TextField
+                                <TextValidator
                                         id="lastName"
                                         label="Last Name"
                                         name="LastName"
                                         fullWidth="true"
                                         variant="outlined"
                                         value={LastName}
-                                        helperText="Required Field"
+                                        validators={['required']}
+                                        errorMessages={['Last Name is required']}
                                         onChange={this.handleInputChange} />
 
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <TextField
+                                    <TextValidator
                                         id="firstName"
                                         label="First Name"
                                         name="FirstName"
                                         fullWidth="true"
                                         variant="outlined"
                                         value={FirstName}
-                                        helperText="Required Field"
+                                        validators={['required']}
+                                        errorMessages={['First Name is required']}
                                         onChange={this.handleInputChange} />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <TextField
+                                    <TextValidator
                                         id="Email"
                                         label="Email"
                                         name="Email"
                                         fullWidth="true"
                                         variant="outlined"
                                         value={Email}
-                                        helperText="Required Field"
+                                        validators={['required', 'isEmail']}
+                                        errorMessages={['required field', 'invalid email']}
                                         onChange={this.handleInputChange} />
                                 </Grid>
                                 {userTypes &&
@@ -176,12 +188,12 @@ class CreateUser extends Component {
                                         variant="contained"
                                         color="primary"
                                         type="submit"
-                                        onClick={this.handleSubmit}
+                                        validators={['required']}
                                         disabled={isLoading}>
                                         Submit
                         </Button>
                                 </div>
-                            </form>
+                                </ValidatorForm>
                         </div>
                     </Paper>
                 </Grid>

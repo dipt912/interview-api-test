@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
-
+import CheckCircleOutlineSharpIcon from '@material-ui/icons/CheckCircleOutlineSharp';
 const useStyles = theme => ({
     root: {
         '& > *': {
@@ -33,14 +33,17 @@ class ConfirmedUser extends Component {
         console.log(this.props);
         return (
             <div>
-                <h2>User Successfully Created</h2>
+                <h2>
+                <span> <CheckCircleOutlineSharpIcon style={{fill: "green"}}/></span>
+                <span>  User Successfully Created</span>
+                   </h2>
                 <Button
                     variant="contained"
                     color="primary"
                     type="submit"
                     onClick={this.redirectToHome.bind(this)}
                 >
-                    Create User
+                    Return Home
                         </Button>
             </div>
 

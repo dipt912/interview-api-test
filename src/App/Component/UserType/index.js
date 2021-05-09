@@ -8,6 +8,8 @@ import Select from '@material-ui/core/Select';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+
 
 
 const useStyles = theme => ({
@@ -48,37 +50,45 @@ class UserType extends Component {
         const { userTypes, user_types, extra_text_inputs, handleChange } = this.props;
         const extraInput = extra_text_inputs[user_types];
         const { classes } = this.props;
+        console.log("extraInput", extra_text_inputs)
 
         return (
             <Grid xs={12}>
-                <FormControl  variant="outlined"  className={classes.formControl}>
+                <FormControl variant="outlined" className={classes.formControl}>
                     <InputLabel id="demo-simple-select-filled-label">User Types</InputLabel>
                     <Select
                         labelId="demo-simple-select-filled-label"
                         id="demo-simple-select-filled"
-                        fullWidth="true" 
-                        value={user_types} onChange={handleChange}
+                        fullWidth="true"
+                        value={user_types}
+                        onChange={handleChange}
                     >
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
                         {userTypes.map((ele, i) =>
-                            <MenuItem key={i} value={ele}>{ele}</MenuItem>
+                            <MenuItem
+                                key={i}
+                                value={ele}>
+                                {ele}
+                            </MenuItem>
                         )}
                     </Select>
                 </FormControl>
 
                 {extraInput && extraInput.length && (
-                    extraInput.map((element, i) => {
+                    extraInput.map((element) => {
                         return (
                             <Grid item xs={12}>
-                                <TextField
+                                <TextValidator
                                     id={element.value}
                                     label={element.label}
                                     name={element.value}
                                     fullWidth="true"
                                     required="true"
                                     variant="outlined"
+                                    validators={['required']}
+                                    errorMessages={[`${element.label} is required`]}
                                     value={this.state[element.value] || ''}
                                     onChange={this.handleExtraField.bind(this)} />
                             </Grid>

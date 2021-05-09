@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { withRouter } from 'react-router-dom'
+
 
 const useStyles = theme => ({
     root: {
@@ -14,7 +16,7 @@ const useStyles = theme => ({
             width: '100vW',
         },
     },
-   
+
     paper: {
         padding: theme.spacing(2),
         textAlign: 'center',
@@ -75,10 +77,15 @@ class CreateUser extends Component {
 
     handleSubmit = async (event) => {
         event.preventDefault()
-        postEvent(this.buildRequest())
-        // this.setState({isLoading: true}, async () => {
-        //     this.setState({isLoading: false})
-        // })
+        const data = await postEvent(this.buildRequest())
+        if (data && Object.keys(data).length) {
+            let { history } = this.props;
+            history.push({
+                pathname: '/confirmed-user',
+                customNameData: data
+            })
+        }
+
     }
     buildRequest() {
 
@@ -120,7 +127,7 @@ class CreateUser extends Component {
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
                         <div className={'form'} >
-                            <form className={classes.root}  autoComplete="off" onSubmit={this.handleSubmit}>
+                            <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
                                 {/* <div className={'form-content'}> */}
                                 <Grid item xs={12}>
                                     <TextField
@@ -128,7 +135,6 @@ class CreateUser extends Component {
                                         label="Last Name"
                                         name="LastName"
                                         fullWidth="true"
-                                        required="true"
                                         variant="outlined"
                                         value={LastName}
                                         helperText="Required Field"
@@ -142,23 +148,21 @@ class CreateUser extends Component {
                                         name="FirstName"
                                         fullWidth="true"
                                         variant="outlined"
-                                        required="true"
                                         value={FirstName}
                                         helperText="Required Field"
                                         onChange={this.handleInputChange} />
-                               </Grid>
-                               <Grid item xs={12}>
+                                </Grid>
+                                <Grid item xs={12}>
                                     <TextField
                                         id="Email"
                                         label="Email"
                                         name="Email"
                                         fullWidth="true"
                                         variant="outlined"
-                                        required="true"
                                         value={Email}
                                         helperText="Required Field"
                                         onChange={this.handleInputChange} />
-                                 </Grid>
+                                </Grid>
                                 {userTypes &&
                                     <UserType
                                         userTypes={userTypes}
@@ -188,4 +192,4 @@ class CreateUser extends Component {
     }
 }
 
-export default withStyles(useStyles)(CreateUser)
+export default withRouter(withStyles(useStyles)(CreateUser))
